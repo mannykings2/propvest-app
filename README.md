@@ -1,14 +1,14 @@
 # PropVest — Fractional Real Estate Investment Platform
 
-A modern React single-page application for fractional co-ownership and investment in Nigerian real estate. PropVest enables users to invest in verified prime properties, buy into off-plan developments with flexible instalment plans, manage portfolios, and withdraw returns, alongside dedicated Developer and Admin portals.
+A React application for fractional co-ownership of Nigerian real estate.
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
-- **Node.js 18+** ([nodejs.org](https://nodejs.org))
-- **npm** or **yarn** / **pnpm**
+- Node.js 18+ (https://nodejs.org)
+- npm or yarn
 
 ### Install & Run
 
@@ -16,164 +16,216 @@ A modern React single-page application for fractional co-ownership and investmen
 # 1. Install dependencies
 npm install
 
-# 2. Start development server (runs at http://localhost:3000)
+# 2. Start development server (opens at http://localhost:3000)
 npm run dev
 
 # 3. Build for production
 npm run build
 
-# 4. Preview production build locally
+# 4. Preview production build
 npm run preview
 ```
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 propvest-app/
-├── index.html                  # HTML entry point & global dark theme baseline
-├── vite.config.js              # Vite configuration (React plugin, dev server on port 3000)
-├── package.json                # Project scripts & dependencies (React 18, Vite 5)
-├── package-lock.json
-├── README.md                   # Project documentation
-│
-└── src/
-    ├── main.jsx                # React root mount point
-    ├── App.jsx                 # App root: mode switching (User / Dev / Admin) & navigation
-    │
-    ├── constants/              # App-wide constants, mock data, and theme tokens
-    │   ├── theme.js            # Design tokens, color palette (C), and currency formatters (nfmt)
-    │   └── data.js             # Mock data (properties, investments, off-plan projects, banks, etc.)
-    │
-    ├── components/             # Reusable UI & modal components
-    │   ├── HardCopyModal.jsx   # Modal for requesting physical document dispatch
-    │   └── ui/
-    │       ├── Bar.jsx         # Custom progress bar component
-    │       ├── Chip.jsx        # Status tags & category badge chips
-    │       └── Stat.jsx        # Formatted KPI / metric display card
-    │
-    └── features/               # Feature-based domain modules
-        ├── dashboard/
-        │   ├── Dashboard.jsx       # User home, portfolio metrics, quick actions & highlights
-        │   └── AddFundsWidget.jsx  # Wallet top-up modal (card & NIBSS bank transfer flows)
-        ├── properties/
-        │   ├── Properties.jsx      # Marketplace with search, category filters, property detail & investing
-        │   └── PropCard.jsx        # Individual property listing card
-        ├── portfolio/
-        │   ├── Portfolio.jsx       # Holdings breakdown, dividend history, performance analytics
-        │   └── ValuationRow.jsx    # Valuation appreciation tracking item
-        ├── offplan/
-        │   ├── OffPlan.jsx         # Off-plan projects, milestone progress & instalment purchase tiers
-        │   └── RenderView.jsx      # Architectural SVG & 3D render visualizer
-        ├── withdraw/
-        │   └── Withdraw.jsx        # Wallet payouts to verified Nigerian bank accounts
-        ├── documents/
-        │   └── Documents.jsx       # Secure document vault (deeds, legal certificates, e-signing)
-        ├── profile/
-        │   └── Profile.jsx         # KYC identity levels (BVN, NIN), personal details & settings
-        ├── support/
-        │   └── Support.jsx         # Helpdesk, ticket submission, FAQ & simulated live chat
-        ├── developer/
-        │   └── DeveloperPortal.jsx # Developer console: project listings, inspection logs, payout requests
-        └── admin/
-            └── AdminDashboard.jsx  # Comprehensive 8-tab operations center (KYC, properties, approvals, ledger)
+├── index.html          # HTML entry point
+├── vite.config.js      # Vite config (React plugin, port 3000)
+├── package.json
+├── src/
+│   ├── main.jsx        # React root render
+│   └── App.jsx         # All components and logic (single-file)
+└── public/             # Static assets (favicon, images)
 ```
 
 ---
 
-## 🏛 Feature Overview
+## What's Inside App.jsx
 
-### 1. User Investment Experience
-- **Dashboard**: Net worth, wallet balances, dividend yields, and recent activity.
-- **Properties Marketplace**: Fractional investment opportunities with financial calculators, yield estimates, and share acquisition.
-- **Portfolio Management**: Active holdings, yield distributions, capital appreciation tracking, and certificate downloads.
-- **Off-Plan Projects**: Construction milestone tracker, finish tier selection (Shell, Standard, Luxury), and instalment payment plans.
-- **Wallet & Payouts**: Secure top-up (Card/Transfer) and verified bank withdrawals.
-- **Document Vault**: Tamper-proof title deeds, survey plans, and physical hard-copy delivery requests.
-- **KYC & Security**: Multi-tier KYC verification (BVN, NIN, Utility bills) in compliance with SEC regulations.
-- **Support**: In-app ticketing, simulated real-time chat, and FAQs.
+All components live in a single file for simplicity. When you're ready to scale:
 
-### 2. Developer Portal
-- Manage submitted developments and construction phases.
-- Upload milestone updates, site inspection reports, and engineer certifications.
-- Request milestone-based escrow payouts and track investor subscriptions.
-
-### 3. Admin Operations Centre
-- Complete operations dashboard with 8 management modules:
-  - User verification & KYC review queues
-  - Property listing moderation and valuation updates
-  - Off-plan development escrow management
-  - Financial ledger, transaction approvals, and audit logs
-
----
-
-## 🎨 Design System & Theme
-
-All design tokens and color constants are centralized in [`src/constants/theme.js`](file:///c:/Users/USER/go_projects/propvest-app/src/constants/theme.js):
-
-| Token | Value | Purpose |
-|---|---|---|
-| `C.bg` | `#0B0D11` | Root page background |
-| `C.card` / `C.cardH` | `#13161C` / `#181B22` | Card container / hover states |
-| `C.border` | `#1E222D` | Section borders and dividers |
-| `C.brown` / `C.brownD` / `C.brownL` | `#A0522D` / `#7A3B1E` / `#C4956A` | Primary brand accent tones |
-| `C.gold` / `C.goldL` | `#B8860B` / `#D4A017` | Premium badges & highlights |
-| `C.green` / `C.greenL` / `C.greenG` | `#2D6A4F` / `#40916C` / `#52B788` | Returns, success & verified badges |
-| `C.teal` / `C.tealL` / `C.tealG` | `#0F4C5C` / `#0E7490` / `#22D3EE` | Off-plan developments & tech accents |
-| `C.indigo` / `C.indigoL` / `C.indigoG` | `#3730A3` / `#6366F1` / `#A5B4FC` | Developer portal & secondary highlights |
-| `C.white` / `C.cream` / `C.muted` | `#FDFAF6` / `#EDE8E0` / `#6B7280` | High-contrast typography hierarchy |
+| Component | Description |
+|-----------|-------------|
+| `PropVestApp` | Root — mode switcher, tab navigation, routing |
+| `Dashboard` | User home, wallet stats, quick actions |
+| `AddFundsWidget` | Bank transfer / card top-up modal |
+| `Properties` | Property browser with search & filter |
+| `PropCard` | Individual property listing card |
+| `Portfolio` | User investment overview |
+| `ValuationRow` | Property valuation change display |
+| `OffPlan` | Off-plan projects with finish tier selector |
+| `RenderView` | SVG architectural renders |
+| `Withdraw` | Wallet management & bank withdrawal |
+| `Documents` | Document vault with email-only enforcement |
+| `Support` | Tickets, live chat simulation, FAQ |
+| `Profile` | KYC, identity & personal info |
+| `HardCopyModal` | Physical document delivery request |
+| `DeveloperPortal` | Developer property listing & management |
+| `AdminDashboard` | Full admin panel (8 tabs) |
 
 ---
 
-## 🔌 Backend Integration Guide
+## Splitting Into Components (Recommended for Production)
 
-Currently, the application runs client-side with mock datasets defined in [`src/constants/data.js`](file:///c:/Users/USER/go_projects/propvest-app/src/constants/data.js).
+When you're ready to split the single file into a proper component tree:
 
-### Recommended Production Stack
-- **Backend API**: Node.js (NestJS / Express) or Go / Python (FastAPI)
-- **Database**: PostgreSQL (relational investment ledgers, property listings, users)
-- **Identity & KYC**: NIBSS BVN verification, Smile ID, or Dojah (NIN/BVN lookup)
-- **Payment Gateway**: Paystack / Flutterwave (Card, Direct Debit, Virtual Bank Accounts)
-- **Storage**: AWS S3 / Cloudflare R2 (Deeds, survey documents, construction photos)
-- **Authentication**: JWT / OAuth2 with multi-factor authentication (MFA)
+```
+src/
+├── App.jsx
+├── constants/
+│   ├── colors.js        # C = { bg, card, brown, ... }
+│   ├── data.js          # INVESTMENTS, PROPS, OFF_PLAN, etc.
+│   └── banks.js         # BANKS array
+├── components/
+│   ├── ui/
+│   │   ├── Chip.jsx
+│   │   ├── Bar.jsx
+│   │   ├── Stat.jsx
+│   │   └── HardCopyModal.jsx
+│   ├── dashboard/
+│   │   ├── Dashboard.jsx
+│   │   └── AddFundsWidget.jsx
+│   ├── properties/
+│   │   ├── Properties.jsx
+│   │   └── PropCard.jsx
+│   ├── portfolio/
+│   │   ├── Portfolio.jsx
+│   │   └── ValuationRow.jsx
+│   ├── offplan/
+│   │   ├── OffPlan.jsx
+│   │   └── RenderView.jsx
+│   ├── withdraw/
+│   │   └── Withdraw.jsx
+│   ├── documents/
+│   │   └── Documents.jsx
+│   ├── support/
+│   │   └── Support.jsx
+│   ├── profile/
+│   │   └── Profile.jsx
+│   ├── developer/
+│   │   └── DeveloperPortal.jsx
+│   └── admin/
+│       └── AdminDashboard.jsx
+└── hooks/
+    └── useWallet.js     # Future: wallet state management
+```
 
-### Connecting APIs
-Create a `.env` file in the root directory:
+---
+
+## Adding a Real Backend
+
+The app is currently a fully static frontend with hardcoded data.
+To connect to a real backend, replace the hardcoded constants in App.jsx with API calls:
+
+### Recommended Stack
+- **API**: Node.js + Express or NestJS
+- **Database**: PostgreSQL (properties, users, investments)
+- **Auth**: JWT + BVN/NIN verification via NIBSS
+- **Payments**: Paystack (card top-up, verification)
+- **Storage**: AWS S3 or Cloudinary (documents, renders)
+- **Hosting**: Vercel (frontend) + Railway/Render (backend)
+
+### Example: Replace hardcoded INVESTMENTS
+
+```jsx
+// Currently (hardcoded):
+const INVESTMENTS = [
+  { id:1, name:"Maitama Residency", ... },
+  ...
+];
+
+// Replace with:
+const [investments, setInvestments] = useState([]);
+useEffect(() => {
+  fetch('/api/v1/investments?userId=USR-001')
+    .then(r => r.json())
+    .then(data => setInvestments(data));
+}, []);
+```
+
+---
+
+## Environment Variables
+
+Create a `.env` file in the root for future API integration:
 
 ```env
-VITE_API_BASE_URL=https://api.staysmartpropvest.com/v1
-VITE_PAYSTACK_PUBLIC_KEY=pk_test_xxxxxxxxxxxxxxxxxxxxxxxx
+VITE_API_BASE_URL=https://api.staysmartpropvest.com
+VITE_PAYSTACK_PUBLIC_KEY=pk_live_xxxxxxxxxx
+VITE_ENVIRONMENT=development
 ```
 
-Access in application code:
-```javascript
-const API_URL = import.meta.env.VITE_API_BASE_URL;
-```
+Access in code: `import.meta.env.VITE_API_BASE_URL`
 
 ---
 
-## 🚢 Deployment
+## Key Design Decisions
 
-### Vercel
+- **Single-file architecture**: All 4,000+ lines in one file for rapid prototyping. Split into components when the team grows.
+- **No external CSS**: All styles are inline React style objects using the `C` color palette.
+- **No routing library**: Tab-based navigation via `useState`. Replace with React Router when adding deep links.
+- **No state management**: `useState` throughout. Add Zustand or Context when wallet/auth state needs to be shared.
+- **Mobile-first**: Fixed `maxWidth: 480px` container simulates a mobile app. Responsive breakpoints to be added for desktop.
+
+---
+
+## Deployment
+
+### Vercel (Recommended)
+
 ```bash
-npx vercel
+npm install -g vercel
+vercel
 ```
 
 ### Netlify
+
 ```bash
 npm run build
-# Deploy the generated `dist/` directory
+# Drag & drop the `dist/` folder to netlify.com
 ```
 
-### Static Hosting / Docker (Nginx)
+### Manual (nginx)
+
 ```bash
 npm run build
-# Serve `dist/` with Nginx or any static file server
+# Serve the dist/ folder with nginx or any static server
 ```
 
 ---
 
-## 📄 License
+## Colours Reference
+
+All brand colours are in the `C` object at the top of App.jsx:
+
+| Token | Hex | Use |
+|-------|-----|-----|
+| `C.brownDk` | `#7A3B1E` | Primary dark brown |
+| `C.brown` | `#A0522D` | Primary brown |
+| `C.brownL` | `#C4956A` | Light brown / accents |
+| `C.cream` | `#EDE8E0` | Cream text |
+| `C.gold` | `#D4A017` | Gold highlights |
+| `C.greenG` | `#52B788` | Success / income green |
+| `C.tealG` | `#22D3EE` | Off-plan teal |
+| `C.bg` | `#0B0D11` | Page background |
+| `C.card` | `#13161C` | Card background |
+
+---
+
+## Browser Support
+
+- Chrome 90+ ✓
+- Safari 14+ ✓
+- Firefox 88+ ✓
+- Edge 90+ ✓
+- Mobile Safari (iOS 14+) ✓
+- Chrome Android ✓
+
+---
+
+## License
 
 Proprietary — StaySmart PropVest Ltd © 2026. All rights reserved.
